@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Cinemusic </title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="data.js"></script>
+</head>
+<body>
+	<div><IMG SRC = MovieReel.jpg>
+        
+	<div id = 'bep'><br>
+	<div><br><center>
+        
+           Enter Artists: <input type="text" id="artist"><br>
+        <button onclick="saveName()"> Go </button>
+	<p>
+
+	
+</body>
+<script type="text/javascript">
+    var similarArtist, artist, finalArtist;
+
+    function saveName(){
+        artist = $("#artist").val();
+        artist = artist.toLowerCase();
+        fetchSimilars(artist);
+
+     }
+    
+    function fetchSimilars(artist) {
+        var url = "http://developer.echonest.com/api/v4/artist/similar";
+        var args = {
+            api_key: 'QU4UFSKPZCJGFGW8M',
+            name: artist
+        };
+        
+        $.getJSON(url, args,
+                  function(response) {
+                  console.log('test' + response.response.artists[0]);
+
+                 for (var i = 0; i < response.response.artists.length; i++) {
+                  similarArtist = response.response.artists[i];
+                  console.log('works' + response.response.artists[i]);
+                  dataLookup(similarArtist);
+                    }
+                  
+                  },
+                  function(data){
+                  console.log('error ' + data);
+                  
+                  }
+        );
+    }
+    function dataLookup(similarArtist){
+        console.log('yay' + similarArtist);
+
+        for (var i = 0; i < data.length; i++) {
+           
+            if (similarArtist === data[i].artist) {
+                console.log('found! ' + name);
+            }
+        }
+
+    }
+    
+   
+          
+    
+         </script>
+		</html>
